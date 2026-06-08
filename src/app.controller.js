@@ -49,17 +49,7 @@ export const boostrap = () => {
     res.render("login", { error: null });
   });
 
-  app.post("/login-page", async (req, res) => {
-    try {
-      const { email, password } = req.body;
-      if (email === "admin@gmail.com") {
-        return res.redirect("/dashboard");
-      }
-      return res.redirect("/home");
-    } catch (err) {
-      res.render("login", { error: "Something went wrong, please try again." });
-    }
-  });
+
 
   app.get("/register", (req, res) => {
     res.render("signup", { error: null, success: null });
