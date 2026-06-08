@@ -1,6 +1,6 @@
 import { body, validationResult } from "express-validator";
 
-// ── Shared validate runner (يشتغل كـ last step في أي array) ──
+
 export const validate = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -15,7 +15,7 @@ export const validate = (req, res, next) => {
   next();
 };
 
-// ── Sign Up rules + validate (array يُمرَّر مباشرة للـ route) ──
+
 export const signUpValidation = [
   body("userName")
     .notEmpty().withMessage("Name is required")
@@ -29,20 +29,20 @@ export const signUpValidation = [
     .notEmpty().withMessage("Password is required")
     .isLength({ min: 6 }).withMessage("Password must be at least 6 characters")
     .matches(/\d/).withMessage("Password must contain at least one number"),
-  validate,   // ← مدمج هنا عشان نتجنب تعديل الـ controller
+  validate,   
 ];
 
-// ── Login rules + validate ──
+
 export const loginValidation = [
   body("email")
     .notEmpty().withMessage("Email is required")
     .isEmail().withMessage("Must be a valid email address"),
   body("password")
     .notEmpty().withMessage("Password is required"),
-  validate,   // ← مدمج هنا
+  validate,
 ];
 
-// ── Change Password rules (الـ controller بيضيف validate بنفسه) ──
+
 export const changePasswordValidation = [
   body("oldPassword").notEmpty().withMessage("Old password is required"),
   body("newPassword")
