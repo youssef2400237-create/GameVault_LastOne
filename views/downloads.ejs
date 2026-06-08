@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Downloads - GameVault</title>
+    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="stylesheet" href="/styles/downloads.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  </head>
+  <body>
+
+    <%- include('partials/sidebar', { page: 'downloads' }) %>
+    <%- include('partials/topnav', { breadcrumb: 'DOWNLOADS' }) %>
+
+    <main class="main-content">
+      <section class="downloads-header">
+        <div class="downloads-info">
+          <h1 data-i18n="downloads-title">Downloads</h1>
+          <p>Manage your active bandwidth and game installations. Your hub for easy performance.</p>
+        </div>
+        <div class="global-space">
+          <h3 data-i18n="global-space">GLOBAL SPACE</h3>
+          <p class="space-info">142.5 MB/s</p>
+        </div>
+      </section>
+
+      <section class="active-operations">
+        <h2 data-i18n="active-ops">ACTIVE OPERATIONS</h2>
+        <div class="downloads-grid empty-state">
+          <div class="download-card">
+            <div class="download-info">
+              <h3>No active downloads</h3>
+              <p>All downloads have been cleared.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="pending-queue">
+        <h2>PENDING QUEUE <span class="queue-count">0</span></h2>
+        <div class="pending-list empty-state">
+          <div class="pending-item">
+            <div class="pending-info">
+              <h3>No pending items</h3>
+              <p>Your queue is currently empty.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="network-health">
+        <h2 data-i18n="network-health">NETWORK HEALTH</h2>
+        <div class="health-chart empty-state">
+          <p>No network metrics available.</p>
+        </div>
+      </section>
+
+      <%- include('partials/footer') %>
+    </main>
+
+    <%- include('partials/cart-modal') %>
+
+    <script src="/scriptes/main.js"></script>
+    <script src="/scriptes/theme-lang.js"></script>
+  </body>
+</html>

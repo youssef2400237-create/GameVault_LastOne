@@ -1,0 +1,49 @@
+<div id="cartModal" class="cart-modal">
+  <div class="cart-modal-content">
+    <div class="cart-modal-header">
+      <h2><i class="fas fa-shopping-cart"></i> <span data-i18n="cart-title">Shopping Cart</span></h2>
+      <button class="cart-close-btn">&times;</button>
+    </div>
+    <div class="cart-items">
+      <div class="empty-cart">
+        <i class="fas fa-shopping-cart"></i>
+        <p data-i18n="cart-empty">Your cart is empty</p>
+        <span data-i18n="cart-empty-hint">Add some games to get started!</span>
+      </div>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span><span data-i18n="total-label">Total:</span> <strong>$0.00</strong></span>
+      </div>
+      <div class="cart-actions">
+        <button class="btn btn-secondary cart-clear-btn" data-i18n="btn-clear-cart">Clear Cart</button>
+        <button class="btn btn-primary cart-checkout-btn" data-i18n="btn-checkout">Checkout</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Checkout Password Modal -->
+<div id="checkoutModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:9999;align-items:center;justify-content:center;">
+  <div style="background:#1a1a2e;border:1px solid #333;border-radius:16px;padding:32px;width:90%;max-width:400px;position:relative;">
+    <button id="checkoutModalClose" style="position:absolute;top:14px;right:16px;background:none;border:none;color:#aaa;font-size:1.4rem;cursor:pointer;">&times;</button>
+    <div style="text-align:center;margin-bottom:20px;">
+      <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#2563eb);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
+        <i class="fas fa-lock" style="color:#fff;font-size:1.4rem;"></i>
+      </div>
+      <h3 style="color:#fff;margin:0 0 6px;">Confirm Your Purchase</h3>
+      <p style="color:#aaa;font-size:0.9rem;margin:0;">Enter your password to complete the order and add it to your library.</p>
+    </div>
+    <div id="checkoutError" style="display:none;background:rgba(255,107,125,0.15);border:1px solid #ff6b7d;border-radius:8px;padding:10px;color:#ff6b7d;font-size:0.85rem;margin-bottom:14px;text-align:center;"></div>
+    <div style="position:relative;margin-bottom:16px;">
+      <input type="password" id="checkoutPassword" placeholder="Your password"
+        style="width:100%;padding:13px 16px;background:#0d0d1a;border:1px solid #333;border-radius:10px;color:#fff;font-size:0.95rem;outline:none;box-sizing:border-box;" />
+    </div>
+    <button id="checkoutConfirmBtn" class="btn btn-primary" style="width:100%;padding:13px;font-size:1rem;">
+      <i class="fas fa-shopping-bag"></i> Place Order
+    </button>
+    <p style="text-align:center;color:#666;font-size:0.8rem;margin-top:14px;">
+      <i class="fas fa-shield-alt" style="margin-right:4px;"></i>Your password is used only to verify your identity.
+    </p>
+  </div>
+</div>

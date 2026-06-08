@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trending - GameVault</title>
+    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="stylesheet" href="/styles/trending.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  </head>
+  <body>
+
+    <%- include('partials/sidebar', { page: 'trending' }) %>
+    <%- include('partials/topnav', { breadcrumb: 'TRENDING' }) %>
+
+    <main class="main-content">
+      <section class="page-hero">
+        <div class="page-hero-content">
+          <div class="hero-label">
+            <span class="label-tag" data-i18n="trending-label">LIVE EVENT</span>
+            <span class="label-tag secondary" data-i18n="trending-label2">Summer Championship Series</span>
+          </div>
+          <h1 class="page-title" data-i18n="trending-title">Trending Now</h1>
+          <p class="page-description" data-i18n="trending-desc">The pulse of the Nexus. Explore the most captivating millions across the globe right now.</p>
+        </div>
+      </section>
+
+      <section class="power-rankings">
+        <div class="section-header">
+          <h2><i class="fas fa-trophy"></i> <span data-i18n="section-rankings">Global Power Rankings</span></h2>
+          <div class="ranking-tabs">
+            <button class="tab-btn active" data-i18n="tab-today">TODAY</button>
+            <button class="tab-btn" data-i18n="tab-week">THIS WEEK</button>
+          </div>
+        </div>
+        <div class="rankings-grid">
+          <% if (typeof games !== 'undefined' && games.length > 0) { %>
+            <% games.slice(0,3).forEach(function(game, i) { %>
+              <div class="ranking-card featured">
+                <div class="ranking-number">0<%= i+1 %></div>
+                <div class="ranking-image">
+                  <img src="<%= game.imageUrl || '/assets/maxresdefault.jpg' %>" alt="<%= game.title %>" />
+                </div>
+                <div class="ranking-info">
+                  <h3><%= game.title %></h3>
+                  <div class="ranking-stats"><span>↑ trending</span><span>Active Players</span></div>
+                </div>
+              </div>
+            <% }) %>
+          <% } else { %>
+            <div class="ranking-card featured">
+              <div class="ranking-number">01</div>
+              <div class="ranking-image"><img src="/assets/maxresdefault.jpg" alt="EA Sports FC 26" /></div>
+              <div class="ranking-info"><h3>EA Sports FC 26</h3><div class="ranking-stats"><span>↑ 11.8%</span><span>1000 Players</span></div></div>
+            </div>
+            <div class="ranking-card featured">
+              <div class="ranking-number">02</div>
+              <div class="ranking-image"><img src="/assets/1670549.jpg" alt="Grand Theft Auto V" /></div>
+              <div class="ranking-info"><h3>Grand Theft Auto V</h3><div class="ranking-stats"><span>↑ 6.2%</span><span>500 Players</span></div></div>
+            </div>
+            <div class="ranking-card featured">
+              <div class="ranking-number">03</div>
+              <div class="ranking-image"><img src="/assets/22ac9450fc473af4a399876965972a5f.jpg" alt="Ghost Rider" /></div>
+              <div class="ranking-info"><h3>Ghost Rider</h3><div class="ranking-stats"><span>↑ 2.5%</span><span>150 Players</span></div></div>
+            </div>
+          <% } %>
+        </div>
+
+        <section class="newsletter-section">
+          <div class="newsletter-content">
+            <h2 data-i18n="newsletter-trend-title">Stay in the Loop</h2>
+            <p data-i18n="newsletter-trend-desc">Get alerts for trending games. Never miss the action.</p>
+            <div class="newsletter-form" id="newsletterFormTrend">
+              <input type="email" id="newsletterEmailTrend" placeholder="Your email here..." class="newsletter-input" />
+              <span class="newsletter-error" style="color:#ff006e;font-size:0.85rem;display:none;"></span>
+              <button class="btn btn-primary" data-i18n="btn-subscribe">SUBSCRIBE</button>
+            </div>
+          </div>
+        </section>
+
+        <%- include('partials/footer') %>
+      </section>
+    </main>
+
+    <%- include('partials/cart-modal') %>
+
+    <script src="/scriptes/main.js"></script>
+    <script src="/scriptes/theme-lang.js"></script>
+  </body>
+</html>

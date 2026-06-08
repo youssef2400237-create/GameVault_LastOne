@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Profile</title>
+    <link rel="stylesheet" href="/styles/profile.css" />
+  </head>
+  <body>
+    <div class="profile-card">
+      <img class="avatar" src="<%= user?.avatar %>" />
+
+      <h2><%= user?.userName || "User" %></h2>
+
+      <p class="email"><%= user?.email %></p>
+
+      <div class="info">
+        <p>🎮 Games: <%= user?.gamesCount || 0 %></p>
+        <p>🛒 Orders: <%= user?.ordersCount || 0 %></p>
+      </div>
+
+      <a href="/home" class="btn">Back Home</a>
+    </div>
+  </body>
+</html>
