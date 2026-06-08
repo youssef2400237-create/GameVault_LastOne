@@ -13,7 +13,7 @@ import {
 } from "./admin.service.js";
 import { auth } from "../../common/middleware/auth.js";
 const router = Router();
-// user
+
 router.get("/get-user-by-admin", auth, async (req, res) => {
   const role = req.user.role;
   const users = await getUser(role);
@@ -42,7 +42,7 @@ router.delete("/delete-user/:id", auth, async (req, res, next) => {
   const deletedUser = await deleteUser(id, isAdmin, next);
   res.status(200).json(deletedUser);
 });
-// games
+
 router.get("/get-games", auth, async (req, res) => {
   const role = req.user.role;
   const games = await getAllGmes(role);
@@ -66,7 +66,7 @@ router.delete("/delete-game/:gameId", auth, async (req, res) => {
   const deletedGame = await deleteGame(gameId, role);
   res.status(200).json(deletedGame);
 });
-// orders
+
 router.get("/get-orders-by-admin", auth, async (req, res) => {
   const role = req.user.role;
   const orders = await getAllOrders(role);
