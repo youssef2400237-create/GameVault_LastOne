@@ -1,0 +1,25 @@
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <h2 class="logo"><i class="fas fa-gamepad"></i> GameVault</h2>
+  </div>
+  <nav class="sidebar-nav">
+    <a href="/home" class="nav-item <%= page === 'home' ? 'active' : '' %>" data-page="home">
+      <i class="fas fa-home"></i> <span data-i18n="nav-library">Library</span>
+    </a>
+    <a href="/store" class="nav-item <%= page === 'store' ? 'active' : '' %>" data-page="store">
+      <i class="fas fa-shopping-cart"></i> <span data-i18n="nav-store">Store</span>
+    </a>
+    <a href="/trending" class="nav-item <%= page === 'trending' ? 'active' : '' %>" data-page="trending">
+      <i class="fas fa-fire"></i> <span data-i18n="nav-trending">Trending</span>
+    </a>
+    <a href="/friends" class="nav-item <%= page === 'friends' ? 'active' : '' %>" data-page="friends">
+      <i class="fas fa-users"></i> <span data-i18n="nav-friends">Friends</span>
+    </a>
+    <a href="/downloads" class="nav-item <%= page === 'downloads' ? 'active' : '' %>" data-page="downloads">
+      <i class="fas fa-download"></i> <span data-i18n="nav-downloads">Downloads</span>
+    </a>
+  </nav>
+  <button class="launch-button">
+    <i class="fas fa-play"></i> <span data-i18n="nav-launch">LAUNCH GAME</span>
+  </button>
+</aside>
