@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - GameVault</title>
+    <link rel="stylesheet" href="../styles/main.css" />
+    <link rel="stylesheet" href="../styles/dashboard.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Mobile sidebar overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-icon">
+          <i class="fas fa-gamepad"></i>
+        </div>
+        <div>
+          <h1>GameVault</h1>
+          <p>Admin Panel</p>
+        </div>
+        <!-- Close button for mobile -->
+        <button class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Close sidebar">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <nav class="sidebar-menu" aria-label="Main navigation">
+        <button class="sidebar-link active" data-view="overview">
+          <i class="fas fa-tachometer-alt"></i>
+          <span data-i18n="dash-title">Dashboard</span>
+        </button>
+        <button class="sidebar-link" data-view="users">
+          <i class="fas fa-users"></i>
+          <span data-i18n="stat-users">Users</span>
+        </button>
+        <button class="sidebar-link" data-view="games">
+          <i class="fas fa-gamepad"></i>
+          <span data-i18n="stat-games">Games</span>
+        </button>
+        <button class="sidebar-link" data-view="settings">
+          <i class="fas fa-cog"></i>
+          <span data-i18n="settings">Settings</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <span class="sidebar-label">Need help?</span>
+        <p>Contact support or review the docs.</p>
+      </div>
+    </aside>
+
+    <div class="page-shell">
+      <header class="topbar">
+        <!-- Hamburger menu button (mobile only) -->
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open sidebar">
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <div class="topbar-search">
+          <i class="fas fa-search"></i>
+          <input
+            type="search"
+            id="globalSearch"
+            placeholder="Search games, users, actions..."
+          />
+        </div>
+        <div class="topbar-actions">
+          <button class="icon-button">
+            <i class="fas fa-bell"></i>
+            <span class="badge-dot"></span>
+          </button>
+          <button class="profile-button" id="profileMenuButton">
+            <span class="profile-avatar">A</span>
+            <span class="profile-name">Admin</span>
+            <i class="fas fa-chevron-down profile-chevron"></i>
+          </button>
+        </div>
+      </header>
+
+      <main class="main-content">
+        <section class="page-header">
+          <div>
+            <p class="eyebrow">Welcome back</p>
+            <h1>Admin Dashboard</h1>
+          </div>
+          <div class="header-actions">
+            <button class="btn btn-secondary" id="refreshStatsBtn">
+              <i class="fas fa-sync"></i> <span class="btn-text">Refresh</span>
+            </button>
+            <button class="btn btn-primary" id="openGameModalBtn">
+              <i class="fas fa-plus"></i> <span class="btn-text">New game</span>
+            </button>
+          </div>
+        </section>
+
+        <section
+          class="overview-panel dashboard-section"
+          data-section="overview"
+        >
+          <div class="stats-grid">
+            <article class="stat-card">
+              <div class="stat-icon bg-blue">
+                <i class="fas fa-users"></i>
+              </div>
+              <div>
+                <span class="stat-label" data-i18n="stat-users">Total Users</span>
+                <h2 id="totalUsers">0</h2>
+                <span class="stat-change positive">+12.4%</span>
+              </div>
+            </article>
+            <article class="stat-card">
+              <div class="stat-icon bg-purple">
+                <i class="fas fa-gamepad"></i>
+              </div>
+              <div>
+                <span class="stat-label" data-i18n="stat-games">Total Games</span>
+                <h2 id="totalGames">0</h2>
+                <span class="stat-change positive">+8.9%</span>
+              </div>
+            </article>
+            <article class="stat-card">
+              <div class="stat-icon bg-green">
+                <i class="fas fa-chart-line"></i>
+              </div>
+              <div>
+                <span class="stat-label" data-i18n="stat-active">Active Users</span>
+                <h2 id="activeUsers">0</h2>
+                <span class="stat-change positive">+4.2%</span>
+              </div>
+            </article>
+            <article class="stat-card">
+              <div class="stat-icon bg-orange">
+                <i class="fas fa-dollar-sign"></i>
+              </div>
+              <div>
+                <span class="stat-label" data-i18n="stat-revenue">Revenue</span>
+                <h2 id="totalRevenue">$0</h2>
+                <span class="stat-change negative">-1.7%</span>
+              </div>
+            </article>
+          </div>
+
+          <div class="panel-card overview-card">
+            <div class="panel-title">
+              <div>
+                <h2>Recent activity</h2>
+                <p>Latest updates from games and user actions.</p>
+              </div>
+              <button class="btn btn-secondary small">View report</button>
+            </div>
+            <div class="activity-list" id="activityList"></div>
+          </div>
+        </section>
+
+        <section class="dashboard-section hidden" data-section="games">
+          <div class="section-toolbar">
+            <div class="toolbar-group">
+              <div class="input-group">
+                <i class="fas fa-search"></i>
+                <input
+                  type="text"
+                  id="gamesSearch"
+                  placeholder="Search games"
+                />
+              </div>
+              <div class="input-group">
+                <select id="gamesFilter">
+                  <option value="all">All statuses</option>
+                  <option value="available">Available</option>
+                  <option value="unavailable">Unavailable</option>
+                </select>
+              </div>
+            </div>
+            <button class="btn btn-primary" id="newGameBtn">
+              <i class="fas fa-plus"></i> Add game
+            </button>
+          </div>
+
+          <div class="panel-card table-panel">
+            <div class="table-header">
+              <div>
+                <h2>Games catalog</h2>
+                <p>Manage the game library and adjust availability.</p>
+              </div>
+              <span id="gamesCount" class="table-summary">0 games</span>
+            </div>
+            <div class="table-scroll">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                    <th class="table-actions-column">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="gamesTableBody"></tbody>
+              </table>
+            </div>
+            <div class="pagination-row">
+              <div class="pagination-info" id="gamesPaginationInfo"></div>
+              <div class="pagination-controls" id="gamesPagination"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="dashboard-section hidden" data-section="users">
+          <div class="section-toolbar">
+            <div class="toolbar-group">
+              <div class="input-group">
+                <i class="fas fa-search"></i>
+                <input
+                  type="text"
+                  id="usersSearch"
+                  placeholder="Search users"
+                />
+              </div>
+              <div class="input-group">
+                <select id="usersFilter">
+                  <option value="all">All roles</option>
+                  <option value="admin">Admin</option>
+                  <option value="member">Member</option>
+                </select>
+              </div>
+            </div>
+            <button class="btn btn-primary" id="newUserBtn">
+              <i class="fas fa-plus"></i> Add user
+            </button>
+          </div>
+
+          <div class="panel-card table-panel">
+            <div class="table-header">
+              <div>
+                <h2>User list</h2>
+                <p>View and manage user accounts.</p>
+              </div>
+              <span id="usersCount" class="table-summary">0 users</span>
+            </div>
+            <div class="table-scroll">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th class="table-actions-column">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="usersTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="dashboard-section hidden" data-section="settings">
+          <div class="panel-card settings-panel">
+            <div class="panel-title">
+              <div>
+                <h2>Settings</h2>
+                <p>Manage dashboard preferences and account settings.</p>
+              </div>
+            </div>
+            <div class="settings-grid">
+              <div class="settings-card">
+                <h3>Theme</h3>
+                <p>Switch between light and dark appearance.</p>
+                <button class="btn btn-secondary" id="themeToggle">
+                  Toggle theme
+                </button>
+              </div>
+              <div class="settings-card">
+                <h3>Notifications</h3>
+                <p>Control notification frequency and alerts.</p>
+                <button class="btn btn-secondary">Manage alerts</button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="modal-overlay hidden" id="gameModal">
+      <div class="modal-card">
+        <div class="modal-header">
+          <div>
+            <h2 id="modalTitle">Add new game</h2>
+            <p>Enter game details to add it to the catalog.</p>
+          </div>
+          <button class="icon-button close-modal" id="closeModalBtn">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <form id="gameModalForm" class="modal-form">
+          <label class="floating-label">
+            <input type="text" id="modalGameTitle" required />
+            <span>Game title</span>
+          </label>
+          <label class="floating-label">
+            <input type="text" id="modalGameCategory" required />
+            <span>Category</span>
+          </label>
+          <label class="floating-label">
+            <input
+              type="number"
+              id="modalGamePrice"
+              min="0"
+              step="0.01"
+              required
+            />
+            <span>Price</span>
+          </label>
+          <label class="floating-label select-label">
+            <select id="modalGameStatus">
+              <option value="available">Available</option>
+              <option value="unavailable">Unavailable</option>
+            </select>
+            <span>Status</span>
+          </label>
+          <div class="modal-actions">
+            <button type="button" class="btn btn-secondary" id="modalCancelBtn">
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-primary" id="modalSaveBtn">
+              Save
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- User Modal -->
+    <div class="modal-overlay hidden" id="userModal">
+      <div class="modal-card">
+        <div class="modal-header">
+          <div>
+            <h2 id="userModalTitle">Add new user</h2>
+            <p>Enter user details below.</p>
+          </div>
+          <button class="icon-button" id="closeUserModalBtn">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <form id="userModalForm" class="modal-form">
+          <label class="floating-label">
+            <input type="text" id="modalUserName" required />
+            <span>Full name</span>
+          </label>
+          <label class="floating-label">
+            <input type="email" id="modalUserEmail" required />
+            <span>Email</span>
+          </label>
+          <label class="floating-label select-label">
+            <select id="modalUserRole">
+              <option value="member">Member</option>
+              <option value="admin">Admin</option>
+            </select>
+            <span>Role</span>
+          </label>
+          <label class="floating-label select-label">
+            <select id="modalUserStatus">
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+            </select>
+            <span>Status</span>
+          </label>
+          <div class="modal-actions">
+            <button type="button" class="btn btn-secondary" id="userModalCancelBtn">Cancel</button>
+            <button type="submit" class="btn btn-primary" id="userModalSaveBtn">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="../scriptes/dashboard.js"></script>
+    <script src="../scriptes/theme-lang.js"></script>
+  </body>
+</html>
