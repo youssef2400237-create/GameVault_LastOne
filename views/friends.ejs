@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Friends - GameVault</title>
+    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="stylesheet" href="/styles/friends.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  </head>
+  <body>
+
+    <%- include('partials/sidebar', { page: 'friends' }) %>
+    <%- include('partials/topnav', { breadcrumb: 'FRIENDS' }) %>
+
+    <main class="main-content">
+      <section class="friends-header">
+        <h1>Social Hub</h1>
+        <p>Connect with your elite squad, coordinate strikes, and dominate the leaderboard.</p>
+      </section>
+
+      <div class="friends-grid">
+        <section class="friends-list-section">
+          <div class="section-header">
+            <h2><i class="fas fa-users"></i> <span data-i18n="nav-friends">Friends</span> Online</h2>
+            <span class="online-count">4 Online</span>
+          </div>
+          <div class="friends-cards">
+            <div class="friend-card">
+              <div class="friend-avatar">
+                <img src="/assets/young-man-enjoying-games-with-headset-on-transparent-background-png.webp" alt="AhmedGamerX" />
+                <span class="status-indicator in-game"></span>
+              </div>
+              <div class="friend-info"><h3>AhmedGamerX</h3><p>IN-GAME</p></div>
+              <div class="friend-actions">
+                <button class="btn btn-icon"><i class="fas fa-gamepad"></i></button>
+                <button class="btn btn-icon"><i class="fas fa-users"></i></button>
+              </div>
+              <div class="friend-current-game">
+                <div class="game-badge"><i class="fas fa-play"></i> PLAYING NOW</div>
+                <div class="playing-info"><font color="rgb(100, 255, 200)">Cyber R...</font></div>
+              </div>
+            </div>
+            <div class="friend-card">
+              <div class="friend-avatar">
+                <img src="/assets/OIP.webp" alt="mazenGamerPro" />
+                <span class="status-indicator online"></span>
+              </div>
+              <div class="friend-info"><h3>mazenGamerPro</h3><p>ONLINE</p></div>
+              <div class="friend-actions">
+                <button class="btn btn-icon"><i class="fas fa-gamepad"></i></button>
+                <button class="btn btn-icon"><i class="fas fa-comment"></i></button>
+              </div>
+              <div class="friend-current-game"><p>"Grinding for the legendary core tonight!"</p></div>
+            </div>
+            <div class="friend-card">
+              <div class="friend-avatar">
+                <img src="/assets/OIP (1).webp" alt="LOL" />
+                <span class="status-indicator away"></span>
+              </div>
+              <div class="friend-info"><h3>LOL</h3><p>AWAY</p></div>
+              <div class="friend-actions">
+                <button class="btn btn-icon"><i class="fas fa-envelope"></i></button>
+                <button class="btn btn-icon"><i class="fas fa-ellipsis-h"></i></button>
+              </div>
+              <div class="friend-current-game">
+                <div class="game-badge"><i class="fas fa-clock"></i> AWAY FROM KEYBOARD</div>
+                <div class="playing-info"><font color="rgb(255, 180, 100)">Offline until later</font></div>
+              </div>
+            </div>
+            <div class="friend-card">
+              <div class="friend-avatar">
+                <img src="/assets/young-brazilian-man-playing-video-260nw-2124366605.webp" alt="Mohamed" />
+                <span class="status-indicator in-game"></span>
+              </div>
+              <div class="friend-info"><h3>Mohamed</h3><p>IN-GAME</p></div>
+              <div class="friend-actions">
+                <button class="btn btn-icon"><i class="fas fa-gamepad"></i></button>
+                <button class="btn btn-icon"><i class="fas fa-users"></i></button>
+              </div>
+              <div class="friend-current-game">
+                <div class="game-badge"><i class="fas fa-play"></i> PLAYING NOW</div>
+                <div class="playing-info"><font color="rgb(100, 255, 200)">Astro Drift: Velocity</font></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <aside class="friends-sidebar">
+          <section class="friend-requests">
+            <div class="section-header">
+              <h3><i class="fas fa-user-plus"></i> Friend Requests</h3>
+              <span class="request-count">2</span>
+            </div>
+            <div class="requests-list">
+              <div class="request-item">
+                <img src="/assets/OIP (2).webp" alt="GlitchHacker" />
+                <div class="request-info"><h4>GlitchHacker</h4><p>Mutual Friends</p></div>
+                <div class="request-actions">
+                  <button class="btn btn-icon accept"><i class="fas fa-check"></i></button>
+                  <button class="btn btn-icon decline"><i class="fas fa-times"></i></button>
+                </div>
+              </div>
+              <div class="request-item">
+                <img src="/assets/Build-a-Steam-Deck-OS-gaming-PC-768x430.webp" alt="StormBreaker" />
+                <div class="request-info"><h4>StormBreaker</h4><p>Recommend by system</p></div>
+                <div class="request-actions">
+                  <button class="btn btn-icon accept"><i class="fas fa-check"></i></button>
+                  <button class="btn btn-icon decline"><i class="fas fa-times"></i></button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="suggested-friends">
+            <div class="section-header"><h3><i class="fas fa-lightbulb"></i> Suggested For You</h3></div>
+            <div class="suggestions-list">
+              <div class="suggestion-item">
+                <img src="/assets/istockphoto-1065007492-612x612.jpg" alt="JOO" />
+                <div class="suggestion-info"><h4>JOO</h4><p>Recommended by system</p></div>
+                <button class="btn btn-icon"><i class="fas fa-user-plus"></i></button>
+              </div>
+              <div class="suggestion-item">
+                <img src="/assets/iistockphoto-1483060668-612x612.jpg" alt="LAILAH" />
+                <div class="suggestion-info"><h4>Lailah</h4><p>Played Cyber Reckoning</p></div>
+                <button class="btn btn-icon"><i class="fas fa-user-plus"></i></button>
+              </div>
+            </div>
+            <button class="btn btn-secondary btn-block">View All Recommendations</button>
+          </section>
+
+          <section class="recent-activity">
+            <div class="section-header"><h3><i class="fas fa-history"></i> Recent Activity</h3></div>
+            <div class="activity-list">
+              <div class="activity-item">
+                <div class="activity-icon"><i class="fas fa-trophy"></i></div>
+                <div class="activity-detail">
+                  <p><strong>NeonValkurie</strong> unlocked achievement "God Like"</p>
+                  <span class="time">2 hours ago</span>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-icon"><i class="fas fa-image"></i></div>
+                <div class="activity-detail">
+                  <p><strong>XenonSurge</strong> shared a new screenshot</p>
+                  <span class="time">10 hours ago</span>
+                </div>
+              </div>
+            </div>
+          </section>
+        </aside>
+      </div>
+
+      <%- include('partials/footer') %>
+    </main>
+
+    <%- include('partials/cart-modal') %>
+
+    <script src="/scriptes/main.js"></script>
+    <script src="/scriptes/theme-lang.js"></script>
+  </body>
+</html>
