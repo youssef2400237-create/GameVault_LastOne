@@ -499,7 +499,7 @@ function getProductData(cardElement) {
 
   if (!img || !title) return null;
 
-  // Use MongoDB _id if available (for real order creation), else fallback to slug
+  
   const mongoId = cardElement.dataset.gameId || null;
   const slug = title.textContent
     .toLowerCase()
@@ -512,7 +512,7 @@ function getProductData(cardElement) {
   }
 
   return {
-    id: mongoId || slug,   // MongoDB _id preferred for checkout
+    id: mongoId || slug,   
     name: title.textContent,
     image: img.src,
     price: price,
@@ -576,9 +576,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-/* =============================================
-   CHECKOUT MODAL - Password Verification + Create Order
-   ============================================= */
+
 function openCheckoutModal() {
   const modal = document.getElementById("checkoutModal");
   if (!modal) return;
@@ -616,7 +614,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Confirm purchase
+  
   const confirmBtn = document.getElementById("checkoutConfirmBtn");
   if (confirmBtn) {
     confirmBtn.addEventListener("click", async function () {
@@ -636,7 +634,7 @@ document.addEventListener("DOMContentLoaded", function () {
       confirmBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying...';
 
       try {
-        // Step 1: Verify password
+       
         const verifyRes = await fetch("/api/users/verify-password", {
           method: "POST",
           headers: { "Content-Type": "application/json", token },
@@ -654,14 +652,14 @@ document.addEventListener("DOMContentLoaded", function () {
         const userId = verifyData.userId;
         const cart = getCart();
 
-        // Step 2: Create an order for each item in cart
+       
         confirmBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Placing order...';
 
         let successCount = 0;
         let failCount = 0;
 
         for (const item of cart) {
-          // gameId comes from item.id (which is the MongoDB _id stored when added to cart)
+         
           try {
             const orderRes = await fetch(`/api/orders/create-order/${userId}/${item.id}`, {
               method: "POST",
@@ -680,7 +678,7 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         }
 
-        // Step 3: Show result
+        
         closeCheckoutModal();
         hideCartModal();
 
@@ -691,7 +689,7 @@ document.addEventListener("DOMContentLoaded", function () {
             "success"
           );
         } else if (successCount > 0 && failCount > 0) {
-          // partial success — remove succeeded items
+          
           clearCart();
           showNotification(
             `⚠️ ${successCount} game${successCount > 1 ? "s" : ""} ordered, ${failCount} failed (check stock).`,
