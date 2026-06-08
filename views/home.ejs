@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GameVault - Gaming Hub</title>
+    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  </head>
+  <body>
+
+    <%- include('partials/sidebar', { page: 'home' }) %>
+    <%- include('partials/topnav', { breadcrumb: 'LIBRARY' }) %>
+
+    <main class="main-content">
+      <section class="hero-section">
+        <div class="hero-content">
+          <div class="hero-label"><span class="label-tag" data-i18n="hero-label">PREMIUM EDITION</span></div>
+          <h1 class="hero-title" data-i18n="hero-title">CYBERPULSE:<br/>RELOADED</h1>
+          <p class="hero-description" data-i18n="hero-desc">GameVault is a modern platform designed to organize, store, and manage your game library in one place.</p>
+          <div class="hero-buttons">
+            <button class="btn btn-primary"><i class="fas fa-play"></i> <span data-i18n="btn-launch">LAUNCH</span></button>
+            <button class="btn btn-secondary"><i class="fas fa-info-circle"></i> <span data-i18n="btn-details">VIEW DETAILS</span></button>
+          </div>
+        </div>
+        <div class="hero-image">
+          <img src="/assets/portrait-of-a-male-gamer-playing-online-games-on-a-computer-cyber-sport-concept-generative-ai-free-photo.jpg" alt="Cyberpulse Reloaded" />
+        </div>
+      </section>
+
+      <section class="special-offers">
+        <div class="section-header">
+          <h2 data-i18n="section-offers">Special Offers</h2>
+          <button class="view-all" data-i18n="view-all-offers">View All Offers ></button>
+        </div>
+        <div class="products-grid">
+          <% if (typeof games !== 'undefined' && games.length > 0) { %>
+            <% games.slice(0,3).forEach(function(game) { %>
+              <div class="product-card">
+                <div class="product-image">
+                  <img src="<%= game.imageUrl || '/assets/rdr2-1280-1540463019272_160w.jpg' %>" alt="<%= game.title %>" />
+                  <div class="product-discount">-75%</div>
+                </div>
+                <div class="product-info"><h3><%= game.title %></h3></div>
+                <div class="product-footer">
+                  <span class="price-tag">$<%= game.price %></span>
+                </div>
+              </div>
+            <% }) %>
+          <% } else { %>
+            <div class="product-card">
+              <div class="product-image"><img src="/assets/rdr2-1280-1540463019272_160w.jpg" alt="Red Dead Redemption 2" /></div>
+              <div class="product-info"><h3>Red Dead Redemption 2</h3><div class="product-discount">-75%</div></div>
+              <div class="product-footer"></div>
+            </div>
+            <div class="product-card">
+              <div class="product-image"><img src="/assets/7237816380f0b316c6f440b7776ba93d.jpg" alt="Grand Theft Auto V" /></div>
+              <div class="product-info"><h3>Grand Theft Auto V</h3></div>
+              <div class="product-footer"></div>
+            </div>
+            <div class="product-card">
+              <div class="product-image"><img src="/assets/maxresdefault.jpg" alt="EA Sports FC 26" /></div>
+              <div class="product-info"><h3>EA Sports FC 26</h3></div>
+              <div class="product-footer"></div>
+            </div>
+          <% } %>
+        </div>
+      </section>
+
+      <section class="top-sellers">
+        <div class="section-header">
+          <h2 data-i18n="section-top">Top Sellers</h2>
+          <button class="view-all" data-i18n="view-all-top">View All ></button>
+        </div>
+        <div class="products-carousel">
+          <div class="product-card-small"><img src="https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=200&h=200&fit=crop" alt="Void Walker" /><h4>Void Walker</h4><span class="price">$19.99</span></div>
+          <div class="product-card-small"><img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=300&h=400&fit=crop" alt="Neon League" /><h4>Neon League</h4><span class="price">$19.99</span></div>
+          <div class="product-card-small"><img src="https://images.unsplash.com/photo-1556438064-2d7646166914?w=200&h=200&fit=crop" alt="Void Guardian" /><h4>Void Guardian</h4><span class="price">$5.99</span></div>
+          <div class="product-card-small"><img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=200&h=200&fit=crop" alt="Silver Core" /><h4>Silver Core</h4><span class="price">$9.99</span></div>
+          <div class="product-card-small"><img src="/assets/R.jpg" alt="Neon Nights" /><h4>Neon Nights</h4><span class="price">$9.99</span></div>
+        </div>
+      </section>
+
+      <!-- ====== YOUR GYM (Purchased Library) ====== -->
+      <section class="your-gym-section" id="yourGymSection">
+        <div class="section-header">
+          <h2><i class="fas fa-gamepad" style="margin-right:8px;color:#7c3aed;"></i> <span data-i18n="section-your-gym">Your Gym</span></h2>
+          <span class="your-gym-count" id="gymCount"></span>
+        </div>
+
+        <!-- Loading state -->
+        <div id="gymLoading" style="text-align:center;padding:40px 0;display:none;">
+          <i class="fas fa-spinner fa-spin" style="font-size:2rem;color:#7c3aed;"></i>
+          <p style="color:#aaa;margin-top:10px;">Loading your games...</p>
+        </div>
+
+        <!-- Empty state (not logged in or no purchases) -->
+        <div id="gymEmpty" style="display:none;">
+          <div style="text-align:center;padding:48px 24px;background:rgba(124,58,237,0.05);border:1px dashed rgba(124,58,237,0.3);border-radius:16px;">
+            <i class="fas fa-inbox" style="font-size:2.5rem;color:#555;margin-bottom:12px;display:block;"></i>
+            <p style="color:#aaa;font-size:1rem;margin:0 0 8px;" id="gymEmptyMsg">You haven't purchased any games yet.</p>
+            <a href="/store" class="btn btn-primary" style="margin-top:12px;display:inline-flex;align-items:center;gap:6px;">
+              <i class="fas fa-store"></i> Go to Store
+            </a>
+          </div>
+        </div>
+
+        <!-- Games grid -->
+        <div class="products-grid" id="gymGrid" style="display:none;"></div>
+      </section>
+      <!-- ====== END YOUR GYM ====== -->
+
+      <section class="newsletter-section">
+        <div class="newsletter-content">
+          <h2 data-i18n="newsletter-home-title">Join the Collective</h2>
+          <p data-i18n="newsletter-home-desc">Get the latest news, deals, and exclusive content from the NEON NEXUS gaming community.</p>
+          <div class="newsletter-form" id="newsletterFormHome">
+            <input type="email" id="newsletterEmailHome" placeholder="Your email here..." class="newsletter-input" data-i18n="ph-newsletter" />
+            <span class="newsletter-error" style="color:#ff006e;font-size:0.85rem;display:none;"></span>
+            <button class="btn btn-primary" data-i18n="btn-subscribe">SUBSCRIBE</button>
+          </div>
+        </div>
+      </section>
+
+      <%- include('partials/footer') %>
+    </main>
+
+    <%- include('partials/cart-modal') %>
+
+    <script src="/scriptes/main.js"></script>
+    <script src="/scriptes/theme-lang.js"></script>
+    <style>
+      .your-gym-section {
+        margin: 48px 0;
+        padding: 0 4px;
+      }
+      .your-gym-section .section-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+      .your-gym-count {
+        background: rgba(124,58,237,0.18);
+        color: #a78bfa;
+        font-size: 0.82rem;
+        font-weight: 600;
+        padding: 4px 12px;
+        border-radius: 20px;
+        border: 1px solid rgba(124,58,237,0.3);
+        letter-spacing: 0.5px;
+      }
+      #gymGrid .product-card {
+        position: relative;
+      }
+      .gym-badge {
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        background: linear-gradient(135deg, #7c3aed, #2563eb);
+        color: #fff;
+        font-size: 0.72rem;
+        font-weight: 700;
+        padding: 3px 9px;
+        border-radius: 20px;
+        letter-spacing: 0.5px;
+        z-index: 2;
+      }
+    </style>
+    <script>
+      (function () {
+        // ---- helpers ----
+        function getToken() {
+          return localStorage.getItem("token") || null;
+        }
+
+        function renderGymGame(game) {
+          const imgSrc = game.imageUrl || "/assets/rdr2-1280-1540463019272_160w.jpg";
+          const title = game.title || "Unknown";
+          const genre = game.genre || "";
+          return `
+            <div class="product-card" data-game-id="${game._id}">
+              <div class="product-image" style="position:relative;">
+                <img src="${imgSrc}" alt="${title}" />
+                <span class="gym-badge"><i class="fas fa-check" style="margin-right:4px;"></i>Owned</span>
+              </div>
+              <div class="product-info">
+                <h3>${title}</h3>
+                ${genre ? `<div class="rating" style="color:#aaa;font-size:0.8rem;">${genre}</div>` : ""}
+              </div>
+              <button class="btn btn-small btn-secondary" style="cursor:default;opacity:0.7;" disabled>
+                <i class="fas fa-check-circle"></i> In Library
+              </button>
+            </div>`;
+        }
+
+        async function loadMyLibrary() {
+          const token = getToken();
+          const loadingEl = document.getElementById("gymLoading");
+          const emptyEl   = document.getElementById("gymEmpty");
+          const gridEl    = document.getElementById("gymGrid");
+          const countEl   = document.getElementById("gymCount");
+          const msgEl     = document.getElementById("gymEmptyMsg");
+
+          if (!token) {
+            msgEl.textContent = "Log in to see your purchased games.";
+            emptyEl.style.display = "block";
+            return;
+          }
+
+          loadingEl.style.display = "block";
+          emptyEl.style.display   = "none";
+          gridEl.style.display    = "none";
+
+          try {
+            const res  = await fetch("/api/users/my-library", { headers: { token } });
+            const data = await res.json();
+            loadingEl.style.display = "none";
+
+            if (!res.ok || !data.games || data.games.length === 0) {
+              emptyEl.style.display = "block";
+              return;
+            }
+
+            countEl.textContent = data.games.length + " game" + (data.games.length !== 1 ? "s" : "");
+            gridEl.innerHTML    = data.games.map(renderGymGame).join("");
+            gridEl.style.display = "grid";
+          } catch (err) {
+            loadingEl.style.display = "none";
+            msgEl.textContent = "Could not load library. Try again later.";
+            emptyEl.style.display = "block";
+          }
+        }
+
+        // Load on page ready
+        document.addEventListener("DOMContentLoaded", loadMyLibrary);
+
+        // Refresh after a successful purchase (dispatched from main.js)
+        window.addEventListener("libraryUpdated", loadMyLibrary);
+      })();
+    </script>
